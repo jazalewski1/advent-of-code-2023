@@ -1,0 +1,33 @@
+#! /bin/bash
+
+DAY_NAME=${1}
+if [[ -z ${DAY_NAME} ]]; then
+    echo "No day name provided"
+    exit 1
+fi
+
+PART_NAME=${2}
+if [[ -z ${PART_NAME} ]]; then
+    echo "No part name provided"
+    exit 1
+fi
+
+function compile() {
+    DAY_ID=$(echo ${DAY_NAME} | sed "s/day//")
+    PART_ID=$(echo ${PART_NAME} | sed "s/part//")
+    TARGET="d${DAY_ID}p${PART_ID}"
+
+    ninja -C build ${TARGET}
+}
+
+function execute() {
+    SOURCE_PATH=$(realpath ${DAY_NAME})
+    if [[ ! -d ${SOURCE_PATH} ]]; then
+        echo "Directory \"${SOURCE_PATH}\" does not exist"
+        exit 1
+    fi
+
+    build/bin/${DAY_NAME}/${PART_NAME} ${SOURCE_PATH}/input.txt
+}
+
+compile && execute

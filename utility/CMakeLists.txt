@@ -5,14 +5,23 @@ set(
     include/utility/Stream.hpp
 )
 
+set(
+    SOURCES
+    src/Dbg.cpp
+    src/Arguments.cpp
+    src/Stream.cpp
+)
+
 add_library(
     utility
-    ${HEADERS}
+    "${HEADERS}"
+    "${SOURCES}"
 )
 
 target_include_directories(
     utility
     PUBLIC include
+    PRIVATE src
 )
 
 set_target_properties(

@@ -1,17 +1,14 @@
 #pragma once
 
-#include "utility/Stream.hpp"
-#include "utility/Dbg.hpp"
+namespace utility
+{
+class Stream;
+} // namespace utility
 
 namespace task
 {
-auto solve_part1(utility::Stream& stream)
-{
-    return 0;
-}
+using Answer = unsigned long;
+Answer solve_part1(utility::Stream&);
 
-auto solve_part2(utility::Stream& stream)
-{
-    return 0;
-}
+Answer solve_part2(utility::Stream&);
 } // namespace task

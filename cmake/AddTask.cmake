@@ -6,19 +6,21 @@ function(parse_day_id)
 endfunction(parse_day_id)
 
 function(add_task)
-    cmake_parse_arguments("ARG" "" "DAY_ID;PART_ID;SOURCE_PATH" "" ${ARGN})
-
-    message("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+    cmake_parse_arguments(
+        "ARG"
+        ""
+        "DAY_ID;PART_ID"
+        "INCLUDES;SOURCES"
+        ${ARGN}
+    )
 
     set(
         CMAKE_RUNTIME_OUTPUT_DIRECTORY 
         "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/day${ARG_DAY_ID}"
     )
 
-    message("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-
     set(TARGET_NAME "d${ARG_DAY_ID}p${ARG_PART_ID}")
-    add_executable("${TARGET_NAME}" "${ARG_SOURCE_PATH}")
+    add_executable("${TARGET_NAME}" "${ARG_SOURCES}")
     set(EXE_NAME "part${ARG_PART_ID}")
     set_target_properties("${TARGET_NAME}" PROPERTIES OUTPUT_NAME "${EXE_NAME}")
 

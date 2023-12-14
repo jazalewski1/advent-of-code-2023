@@ -9,15 +9,7 @@
 #include <stack>
 #include <string>
 
-auto get_filename(std::string s)
-{
-    const auto last_slash_pos = s.find_last_of('/');
-    if (last_slash_pos != std::string::npos)
-    {
-        s.erase(0, last_slash_pos + 1);
-    }
-    return s;
-}
+std::string get_filename(std::string);
 
 #define LOCATION std::string{"["}.append(get_filename(__FILE__)).append(":").append(std::to_string(__LINE__)).append("]")
 
@@ -55,10 +47,7 @@ template <typename T>
 void print(std::ostream&, const std::optional<T>&);
 
 template <>
-void print(std::ostream& stream, const char& c)
-{
-    stream << '\'' << c << '\'';
-}
+void print(std::ostream&, const char&);
 
 template <typename T, typename U>
 void print(std::ostream& stream, const std::pair<T, U>& pair)
@@ -121,7 +110,7 @@ struct Stringified
     std::string string;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Stringified& in) { return stream << in.string; }
+std::ostream& operator<<(std::ostream&, const Stringified&);
 
 #define STR(expr) \
     [&](auto&& e) -> decltype(auto) { \

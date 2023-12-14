@@ -1,9 +1,5 @@
 #pragma once
 
-#include "utility/Dbg.hpp"
-#include <exception>
-#include <fstream>
-#include <iomanip>
 #include <string>
 #include <iterator>
 #include <istream>
@@ -18,58 +14,42 @@ public:
     using difference_type = std::ptrdiff_t;
     using value_type = std::string;
 
-    StreamIterator(std::istream& s) : stream{&s}
-    {
-        read();
-    }
+    StreamIterator(std::istream&);
 
-    StreamIterator() : stream{nullptr}, is_end_of_stream{true} {}
+    StreamIterator();
 
-    const value_type& operator*() const { return current_line; }
+    const value_type& operator*() const;
 
-    const value_type* operator->() const { return &current_line; }
+    const value_type* operator->() const;
 
-    StreamIterator& operator++()
-    {
-        read();
-        return *this;
-    }
+    StreamIterator& operator++();
 
-    StreamIterator operator++(int) { return StreamIterator{*stream}; }
+    StreamIterator operator++(int);
 
-    friend bool operator==(const StreamSentinel&, const StreamIterator& itr) { return itr.is_end_of_stream; }
+    friend bool operator==(const StreamSentinel&, const StreamIterator&);
 
-    friend bool operator!=(const StreamSentinel& sen, const StreamIterator& itr) { return not (sen == itr); }
+    friend bool operator!=(const StreamSentinel&, const StreamIterator&);
 
 private:
     std::istream* stream;
     std::string current_line;
     bool is_end_of_stream;
 
-    void read()
-    {
-        is_end_of_stream = stream->eof();
-        if (not is_end_of_stream)
-        {
-            std::getline(*stream, current_line);
-        }
-    }
+    void read();
 };
 
 class Stream
 {
 public:
-    Stream(std::istream& stream) : stream{stream}
-    {
-    }
+    Stream(std::istream&);
 
-    bool is_active() const { return not stream.eof(); }
+    bool is_active() const;
 
-    std::string next_line() { return *StreamIterator{stream}; }
+    std::string next_line();
 
-    StreamIterator begin() { return StreamIterator{stream}; }
+    StreamIterator begin();
 
-    StreamSentinel end() { return StreamSentinel{}; }
+    StreamSentinel end();
 
 private:
     std::istream& stream;

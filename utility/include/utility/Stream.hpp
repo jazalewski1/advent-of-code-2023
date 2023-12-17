@@ -47,6 +47,8 @@ public:
 
     std::string next_line();
 
+    void skip(unsigned = 1);
+
     StreamIterator begin();
 
     StreamSentinel end();

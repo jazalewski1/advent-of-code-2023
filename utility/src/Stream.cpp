@@ -53,6 +53,14 @@ bool Stream::is_active() const { return not stream.eof(); }
 
 std::string Stream::next_line() { return *StreamIterator{stream}; }
 
+void Stream::skip(unsigned count)
+{
+    for (auto i = 0u; i < count; ++i)
+    {
+        StreamIterator{stream};
+    }
+}
+
 StreamIterator Stream::begin() { return StreamIterator{stream}; }
 
 StreamSentinel Stream::end() { return StreamSentinel{}; }

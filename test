@@ -1,0 +1,27 @@
+#! /bin/bash
+
+EXPECTED_ANSWER=${1}
+if [[ -z ${EXPECTED_ANSWER} ]]; then
+    echo "No expected answer provided"
+    exit 1
+fi
+if [[ ! -p /dev/stdin ]]; then
+    echo "No input provided"
+    exit 1
+fi
+ANSWER=$(cat | tail -1 | sed -n 's/\(.*answer:\)\(.*\)/\2/p')
+
+echo "EXPECTED: ${EXPECTED_ANSWER}"
+echo "  ANSWER: ${ANSWER}"
+NO_COLOR='\033[0m'
+if [[ -z "${ANSWER}" ]]; then
+    echo "No answer found"
+    YELLOW='\033[0;33m'
+    echo -e "${YELLOW}[ INCONCLUSIVE ]${NO_COLOR}"
+elif [ "${ANSWER}" != "${EXPECTED_ANSWER}" ]; then
+    RED='\033[0;31m'
+    echo -e "${RED}[ FAIL ]${NO_COLOR}"
+else
+    GREEN='\033[0;32m'
+    echo -e "${GREEN}[ PASS ]${NO_COLOR}"
+fi

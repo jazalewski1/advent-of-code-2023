@@ -23,3 +23,10 @@ There is also a bash script to run each solution, which requires the `input.txt`
 ```
 ./run day3 part2
 ```
+
+There is also a bash script to test each solution against an expected answer, which looks for line with the answer
+and compares them.
+Just pipe solution output to this script like so:
+```
+./run day3 part2 | ./test 12345
+```

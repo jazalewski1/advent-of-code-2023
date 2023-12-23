@@ -19,9 +19,11 @@ To execute a solution provide input file and pass it to executable as first argu
 build/bin/day3/part2 day3/input.txt
 ```
 
-There is also a bash script to run each solution, which requires the `input.txt` file to be present in day directory.
+There is also a bash script to run each solution, which by default takes the `input.txt` file as input,
+but optional third option can be provided with other input file:
 ```
 ./run day3 part2
+./run day3 part2 day3/example-input.txt
 ```
 
 There is also a bash script to test each solution against an expected answer, which looks for line with the answer

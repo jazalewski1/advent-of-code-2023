@@ -12,6 +12,12 @@ if [[ -z ${PART_NAME} ]]; then
     exit 1
 fi
 
+SOURCE_PATH=$(realpath ${DAY_NAME})
+INPUT_FILE="${SOURCE_PATH}/input.txt"
+if [[ ! -z ${3} ]]; then
+    INPUT_FILE="${3}"
+fi
+
 function compile() {
     DAY_ID=$(echo ${DAY_NAME} | sed "s/day//")
     PART_ID=$(echo ${PART_NAME} | sed "s/part//")
@@ -21,13 +27,12 @@ function compile() {
 }
 
 function execute() {
-    SOURCE_PATH=$(realpath ${DAY_NAME})
     if [[ ! -d ${SOURCE_PATH} ]]; then
         echo "Directory \"${SOURCE_PATH}\" does not exist"
         exit 1
     fi
 
-    build/bin/${DAY_NAME}/${PART_NAME} ${SOURCE_PATH}/input.txt
+    build/bin/${DAY_NAME}/${PART_NAME} ${INPUT_FILE}
 }
 
 compile && execute

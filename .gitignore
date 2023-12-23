@@ -1,4 +1,4 @@
 build*
 .vscode
-input*.txt
+*input*.txt
 .cache

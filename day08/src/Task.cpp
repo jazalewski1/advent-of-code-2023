@@ -84,16 +84,12 @@ Answer solve_part2(utility::Stream& stream)
 
     const auto is_start_node = [](const NodeId& id) { return id[2] == 'A'; };
     const auto is_end_node = [](const NodeId& id) { return id[2] == 'Z'; };
-    std::vector<StepCount> step_counts;
-    for (const auto& current_id : std::views::keys(map) | std::views::filter(is_start_node))
+    StepCount lcm = count_steps(map, directions, map.begin()->first, is_end_node);
+    for (const auto& current_id : std::views::keys(map) | std::views::drop(1) | std::views::filter(is_start_node))
     {
         const auto step_count = count_steps(map, directions, current_id, is_end_node);
-        step_counts.push_back(step_count);
+        lcm = std::lcm(lcm, step_count);
     }
-
-    const auto get_lcm = std::lcm<StepCount, StepCount>;
-    const auto lcm = std::accumulate(step_counts.begin(), step_counts.end(), step_counts.front(), get_lcm);
-
     return lcm;
 }
 } // namespace task

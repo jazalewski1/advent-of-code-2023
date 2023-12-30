@@ -14,15 +14,14 @@ function(add_task)
         ${ARGN}
     )
 
-    set(
-        CMAKE_RUNTIME_OUTPUT_DIRECTORY 
-        "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/day${ARG_DAY_ID}"
-    )
-
     set(TARGET_NAME "d${ARG_DAY_ID}p${ARG_PART_ID}")
     add_executable("${TARGET_NAME}" "${ARG_SOURCES}")
     set(EXE_NAME "part${ARG_PART_ID}")
-    set_target_properties("${TARGET_NAME}" PROPERTIES OUTPUT_NAME "${EXE_NAME}")
+    set_target_properties(
+        "${TARGET_NAME}"
+        PROPERTIES
+        OUTPUT_NAME "${EXE_NAME}"
+    )
 
     target_include_directories(
         "${TARGET_NAME}"

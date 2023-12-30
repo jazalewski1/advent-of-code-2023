@@ -7,8 +7,6 @@ function(add_test_module)
 		${ARGN}
 	)
 
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}/${ARG_OUTPUT_DIR})
-
 	add_executable(
 		${ARG_NAME}
 		${ARG_SOURCES}

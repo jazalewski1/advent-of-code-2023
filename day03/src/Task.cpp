@@ -3,6 +3,7 @@
 #include <numeric>
 #include <string>
 #include <vector>
+#include <optional>
 
 namespace
 {

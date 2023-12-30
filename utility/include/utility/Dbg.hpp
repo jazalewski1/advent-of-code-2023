@@ -142,4 +142,30 @@ std::string concatenate(const Ts& ... data)
 
 #define CONCAT(...) concatenate(__VA_ARGS__)
 
+template <typename T>
+void log_params_rest(const T& data)
+{
+    print(std::cout, data);
+    std::cout << std::endl;
+}
+
+template <typename T, typename ... Ts>
+void log_params_rest(const T& data, const Ts& ... tail)
+{
+    print(std::cout, data);
+    std::cout << ", ";
+    log_params_rest(tail...);
+}
+
+template <typename ... Ts>
+void log_params(const std::string& location, const Ts& ... data)
+{
+    std::cout << location << ' ';
+    log_params_rest(data...);
+}
+
+#define LOG_PARAM(...) log_params(LOCATION, __VA_ARGS__)
+
 #define LOG_SEPARATOR() log(LOCATION, "----------------------------------------------------------------------")
+
+#define WAIT() std::cin.get();
